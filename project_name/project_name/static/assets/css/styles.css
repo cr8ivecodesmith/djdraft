@@ -1,0 +1,11 @@
+/**
+ * All your custom styles go here.
+ */
+
+/* This is just a sample */
+body {
+    font-family: 'Roboto', 'Open Sans', Helvetica, sans;
+    color: #333;
+    min-height: 2000px;
+    padding-top: 50px;
+}

@@ -1,0 +1,2 @@
+# Development and Staging environment packages
+-r base.pip
