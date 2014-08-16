@@ -1,0 +1,16 @@
+{% templatetag openblock %} extends 'base.html' {% templatetag closeblock %}
+
+{% templatetag openblock %} block page_title {% templatetag closeblock %}{{ project_name }} ~{% templatetag openvariable %} user.get_full_name|default:user.username {% templatetag closevariable %} | edit{% templatetag openblock %} endblock {% templatetag closeblock %}
+
+{% templatetag openblock %} block main {% templatetag closeblock %}
+{% templatetag openblock %} include 'navigation.html' {% templatetag closeblock %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <h2>Editing profile for <strong>{% templatetag openvariable %} user.get_full_name|default:user.username {% templatetag closevariable %}</strong></h2>
+        </div>
+    </div>
+</section>
+
+{% templatetag openblock %} endblock {% templatetag closeblock %}
