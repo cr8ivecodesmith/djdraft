@@ -30,7 +30,12 @@ class UserProfileView(View):
 
         # Make sure that the user exists
         try:
-            user = User.objects.get(username=username)
+            user = User.objects.get(
+                username=username,
+                is_staff=False,
+                is_superuser=False,
+                is_active=True
+            )
         except User.DoesNotExist:
             raise Http404
 
