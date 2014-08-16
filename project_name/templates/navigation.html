@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% templatetag openblock %} load staticfiles {% templatetag closeblock %}
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -9,8 +9,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'home' %}">
-                <img alt="Awesome App" src="{% static 'assets/img/app_32x32.png' %}">
+            <a class="navbar-brand" href="{% templatetag openblock %} url 'home' {% templatetag closeblock %}">
+                <img alt="{{ project_name }}" src="{% templatetag openblock %} static 'assets/img/app_32x32.png' {% templatetag closeblock %}">
             </a>
         </div>
         <div class="navbar-collapse collapse">
@@ -18,19 +18,19 @@
                 <!-- Navbar left controls here -->
             </div>
             <ul class="nav navbar-nav navbar-right">
-                {% if user and not user.is_anonymous %}
+                {% templatetag openblock %} if user and not user.is_anonymous {% templatetag closeblock %}
                 <li>
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <strong>{{ user.get_full_name|default:user.username }}</strong>
+                        <strong>{% templatetag openvariable %} user.get_full_name|default:user.username {% templatetag closevariable %}</strong>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="{% url 'auth:logout' %}?next={{ request.path }}">Sign out</a>
+                            <a href="{% templatetag openblock %} url 'auth:logout' {% templatetag closeblock %}?next={% templatetag openvariable %} request.path {% templatetag closevariable %}">Sign out</a>
                         </li>
                     </ul>
                 </li>
-                {% else %}
+                {% templatetag openblock %} else {% templatetag closeblock %}
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         Sign in
@@ -38,11 +38,11 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Twitter</a>
+                            <a href="{% templatetag openblock %} url 'social:begin' 'twitter' {% templatetag closeblock %}?next={% templatetag openvariable %} request.path {% templatetag closevariable %}">Twitter</a>
                         </li>
                     </ul>
                 </li>
-                {% endif %}
+                {% templatetag openblock %} endif {% templatetag closeblock %}
             </ul>
         </div>
     </div>

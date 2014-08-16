@@ -1,16 +1,16 @@
-{% extends 'base.html' %}
+{% templatetag openblock %} extends 'base.html' {% templatetag closeblock %}
 
-{% block page_title %}Awesome App Homepage{% endblock %}
+{% templatetag openblock %} block page_title {% templatetag closeblock %}{{ project_name }} homepage{% templatetag openblock %} endblock {% templatetag closeblock %}
 
-{% block main %}
-{% include 'navigation.html' %}
+{% templatetag openblock %} block main {% templatetag closeblock %}
+{% templatetag openblock %} include 'navigation.html' {% templatetag closeblock %}
 
 <section>
     <div class="container">
         <div class="row">
-            <h1>Welcome to my awesome homepage!</h1>
+            <h1>Welcome to {{ project_name }}!</h1>
         </div>
     </div>
 </section>
 
-{% endblock %}
+{% templatetag openblock %} endblock {% templatetag closeblock %}

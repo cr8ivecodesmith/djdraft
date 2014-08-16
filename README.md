@@ -19,7 +19,7 @@ You should have a virtualenv ready with either Python 2.7.x or 3.x
 
 ### Database
 
-This app is configured with PostgresSQL in mind.
+This app is configured with PostgreSQL/MySQL in mind.
 
 
 ### Environmental variables
@@ -51,6 +51,8 @@ the concerned variables in your settings file. Just don't commit your settings f
 
 ## Usage
 
+If you named your app `your_app_name`:
+
 ```
-$ django-admin startproject --template=https://github.com/cr8ivecodesmith/djdraft/archive/master.zip --extension=py,rst,html your_app_name
+$ django-admin startproject --template=https://github.com/cr8ivecodesmith/djdraft/archive/master.zip --extension=py,html your_app_name
 ```

@@ -147,6 +147,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
+# Social authentication backends
+# See: http://psa.matiasaguirre.net/docs/configuration/django.html#authentication-backends
+AUTHENTICATION_BACKENDS = (
+    'social.backends.twitter.TwitterOAuth',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 # Social Auth keys
 SOCIAL_AUTH_TWITTER_KEY = os.environ.get(ENV_PREFIX + '_SOCIAL_AUTH_TWITTER_KEY')
 SOCIAL_AUTH_TWITTER_SECRET = os.environ.get(ENV_PREFIX + '_SOCIAL_AUTH_TWITTER_SECRET')
