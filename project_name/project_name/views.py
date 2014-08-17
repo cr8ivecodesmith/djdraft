@@ -3,19 +3,15 @@ from django.views.generic import View
 from django.http import Http404
 from django.contrib.auth.models import User
 
-from rest_framework import status  # See: http://www.django-rest-framework.org/api-guide/status-codes
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.parsers import FileUploadParser
+from rest_framework import status
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .serializers import UserSerializer
 
 
 class HomepageView(View):
-    template_name = 'home.html'
+    template_name = '{{ project_name }}/home.html'
 
     def get(self, request, *args, **kwargs):
         context = {}
@@ -23,7 +19,7 @@ class HomepageView(View):
 
 
 class UserProfileView(View):
-    template_name = 'profile_view.html'
+    template_name = '{{ project_name }}/profile_view.html'
 
     def get(self, request, *args, **kwargs):
         username = kwargs.get('username')
@@ -47,7 +43,7 @@ class UserProfileView(View):
 
 
 class UserProfileEditView(View):
-    template_name = 'profile_edit.html'
+    template_name = '{{ project_name }}/profile_edit.html'
 
     def get(self, request, *args, **kwargs):
         username = kwargs.get('username')
@@ -73,9 +69,6 @@ class UserListAPIView(ListAPIView):
     model = User
     serializer_class = UserSerializer
 
-    # For more params see: http://www.django-rest-framework.org/api-guide/generic-views#genericapiview
-    # paginate_by = 10
-
     def get_queryset(self):
         return self.model.objects.filter(
             is_staff=False,
@@ -85,9 +78,9 @@ class UserListAPIView(ListAPIView):
 
 
 class UserDetailsAPIView(RetrieveAPIView):
-    """ List all active public users
+    """ Get active public user details
 
-        Endpoint: /api/v1/users/:username
+        Endpoint: /api/v1/users/details/:username
     """
     model = User
     serializer_class = UserSerializer
@@ -105,30 +98,3 @@ class UserDetailsAPIView(RetrieveAPIView):
             return Response(status.HTTP_404_NOT_FOUND)
 
         return qs
-
-
-class UserModAPIView(APIView):
-    """ Modify current user
-
-        Allowed actions: GET, PATCH
-
-        Endpoint: /api/v1/users/:username/edit
-
-        TODO: Complete this class
-    """
-    authentication_classes = (SessionAuthentication, BasicAuthentication,)
-    permission_classes = (IsAuthenticated,)
-    parser_classes = (FileUploadParser,)
-
-    def get(self, request, format=None):
-        content = {
-            'user': unicode(request.user),
-            'auth': unicode(request.auth)
-        }
-
-        return Response(content)
-
-    def put(self, request, filename, format=None):
-        file_obj = request.FILES['file']
-        # Do something with file
-        return Response(status.HTTP_202_ACCEPTED)

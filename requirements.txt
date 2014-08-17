@@ -1,1 +1,6 @@
--r requirements/prod.pip
+https://github.com/django/django/archive/stable/1.7.x.zip
+djangorestframework
+python-social-auth
+psycopg2
+pillow
+gunicorn

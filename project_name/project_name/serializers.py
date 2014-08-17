@@ -13,5 +13,6 @@ class UserSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'userprofile',
+            'is_active'
         )
         depth = 1

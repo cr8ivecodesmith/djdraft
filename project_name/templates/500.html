@@ -1,14 +1,13 @@
 {% templatetag openblock %} extends 'base.html' {% templatetag closeblock %}
 
-{% templatetag openblock %} block page_title {% templatetag closeblock %}{{ project_name }} homepage{% templatetag openblock %} endblock {% templatetag closeblock %}
+{% templatetag openblock %} block title {% templatetag closeblock %}{{ project_name }} - Error 500{% templatetag openblock %} endblock {% templatetag closeblock %}
 
 {% templatetag openblock %} block main {% templatetag closeblock %}
-{% templatetag openblock %} include 'navigation.html' {% templatetag closeblock %}
 
 <section>
     <div class="container">
         <div class="row">
-            <h1>Welcome to {{ project_name }}!</h1>
+            <h1>Whoopsie something unexpected happened!</h1>
         </div>
     </div>
 </section>

@@ -29,7 +29,7 @@
                             <a href="{% templatetag openblock %} url 'user_profile_edit' request.user.username {% templatetag closeblock %}">Profile</a>
                         </li>
                         <li>
-                            <a href="{% templatetag openblock %} url 'auth:logout' {% templatetag closeblock %}?next={% templatetag openvariable %} request.path {% templatetag closevariable %}">Sign out</a>
+                            <a href="{% templatetag openblock %} url 'auth:logout' {% templatetag closeblock %}?next={% templatetag openblock %} url 'home' {% templatetag closeblock %}">Sign out</a>
                         </li>
                     </ul>
                 </li>

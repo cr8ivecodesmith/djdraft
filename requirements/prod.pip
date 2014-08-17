@@ -1,4 +1,0 @@
-# Production environment packages
--r base.pip
-
-gunicorn

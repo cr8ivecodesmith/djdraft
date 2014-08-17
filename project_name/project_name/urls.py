@@ -19,7 +19,7 @@ api_v1_patterns = format_suffix_patterns(patterns(
         name='api_v1_users_list',
     ),
     url(
-        r'users/(?P<username>\w+)',
+        r'users/details/(?P<username>\w+)',
         UserDetailsAPIView.as_view(),
         name='api_v1_users_details',
     ),

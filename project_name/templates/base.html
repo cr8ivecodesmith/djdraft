@@ -11,9 +11,9 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     {% templatetag openblock %} block extra_fonts {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
 
-    <link rel="shortcut icon" type="image/x-icon" href="{% templatetag openblock %} static 'assets/img/favicon.ico' {% templatetag closeblock %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% templatetag openblock %} static '{{ project_name }}/img/favicon.ico' {% templatetag closeblock %}">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% templatetag openblock %} static 'assets/css/styles.css' {% templatetag closeblock %}">
+    <link rel="stylesheet" href="{% templatetag openblock %} static '{{ project_name }}/css/styles.css' {% templatetag closeblock %}">
     {% templatetag openblock %} block extra_css {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -23,18 +23,19 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <title>{% templatetag openblock %} block page_title {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}</title>
+    <title>{% templatetag openblock %} block title {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}</title>
 </head>
 <body>
+    {% templatetag openblock %} include 'navigation.html' {% templatetag closeblock %}
     {% templatetag openblock %} block main {% templatetag closeblock %}
     {% templatetag openblock %} endblock {% templatetag closeblock %}
     <!-- External and third-party js libs -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="{% templatetag openblock %} static 'libs/jquery/jquery.cookie.js' {% templatetag closeblock %}" type="text/javascript"></script>
+    <script src="{% templatetag openblock %} static '{{ project_name }}/libs/jquery/jquery.cookie.js' {% templatetag closeblock %}" type="text/javascript"></script>
 
     <!-- keep this at the bottom -->
-    <script src="{% templatetag openblock %} static 'assets/js/plugins.js' {% templatetag closeblock %}" type="text/javascript"></script>
-    <script src="{% templatetag openblock %} static 'assets/js/scripts.js' {% templatetag closeblock %}" type="text/javascript"></script>
+    <script src="{% templatetag openblock %} static '{{ project_name }}/js/plugins.js' {% templatetag closeblock %}" type="text/javascript"></script>
+    <script src="{% templatetag openblock %} static '{{ project_name }}/js/scripts.js' {% templatetag closeblock %}" type="text/javascript"></script>
 </body>
 </html>
