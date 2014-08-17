@@ -8,7 +8,14 @@ logins. Built as a hackathon starter boilerplate in mind.
 
 Based on bleeding edge Django 1.7x
 
-Uses Twitter as default social auth login
+Uses Twitter as default social auth login.
+
+
+## Screenshots
+
+![alt text](screenshots/scr1.png "Screenshot 1")
+
+![alt text](screenshots/scr2.png "Screenshot 1")
 
 
 ## Prerequisites
