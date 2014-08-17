@@ -1,0 +1,40 @@
+{
+    "secret_key": "PutY0urSup3rS3cr3tK3yH3r3AndK33p1tS3cr3t0k?",
+    "debug": true,
+    "allowed_hosts": ["localhost", "example.com"],
+    "admins": {
+        "Your name": "your_email@example.com"
+    },
+    "timezone": "Asia/Manila",
+    "databases": {
+        "default": {
+            "ENGINE": "django.db.backends.",
+            "NAME": "",
+            "USER": "",
+            "PASSWORD": "",
+            "HOST": "",
+            "PORT": 0
+        }
+    },
+    "caches": {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache"
+        }
+    },
+    "email": {
+        "default": {
+            "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+            "HOST": "smtp.gmail.com",
+            "PORT": 587,
+            "USER": "your_email@example.com",
+            "PASSWORD": "",
+            "FROM": "your_email@example.com"
+        }
+    },
+    "social_auth": {
+        "twitter": {
+            "key": "",
+            "secret": ""
+        }
+    }
+}

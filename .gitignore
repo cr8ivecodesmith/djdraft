@@ -40,7 +40,6 @@ nosetests.xml
 *.pid
 
 # Configuration
-config.json
 config-user.json
 
 # Vim
@@ -48,9 +47,6 @@ config-user.json
 
 # OSX
 .DS_Store
-
-# Custom config
-config-user.json
 
 # Media and Third-party static files
 media
