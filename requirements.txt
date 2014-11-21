@@ -1,4 +1,4 @@
-https://github.com/django/django/archive/stable/1.7.x.zip
+django
 djangorestframework
 python-social-auth
 psycopg2
