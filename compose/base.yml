@@ -6,44 +6,47 @@ services:
         image: postgres:9.5
         volumes:
             - ../scripts/init-db-user.sh:/docker-entrypoint-initdb.d/init-db-user.sh
-            - ../db/postgres:/var/lib/postgresql/data/
+            - ../var/db/postgres:/var/lib/postgresql/data/
         ports:
             - "8013:5432"
         env_file:
-            - ../scripts/vars.env
-        container_name: can_db
+            - ../.env
+        container_name: app_db
 
     redis:
         restart: always
-        image: redis:latest
+        build:
+            context: ../
+            dockerfile: DockerfileRedis
+        image: sentinel_redis
         volumes:
-            - ../db/redis:/data
-        container_name: can_rd
+            - ../var/db/redis:/data
+        container_name: app_rd
 
     rabbitmq:
         restart: always
         image: rabbitmq:latest
         volumes:
-            - ../db/rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@can_rq
+            - ../var/db/rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@app_rq
         ports:
             - "8014:15672"
-        hostname: "can_rq"
+        hostname: "app_rq"
         env_file:
-            - ../scripts/vars.env
-        container_name: can_rq
+            - ../.env
+        container_name: app_rq
 
     web:
         restart: always
         build:
             context: ../
-        image: can_web
+        image: app_web
         volumes:
-            - ../:/srv/caffeine/abm
+            - ../:/srv/caffeine/project
         env_file:
-            - ../scripts/vars.env
-        container_name: can_web
+            - ../.env
+        container_name: app_web
         ports:
             - "8015:8000"
             - "2767:22"
-        working_dir: "/srv/caffeine/abm"
+        working_dir: "/srv/caffeine/project"
         command: scripts/docker_start.sh

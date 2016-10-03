@@ -75,5 +75,15 @@ workers_stop:
 workers_restart:
 	source scripts/celery/$(APP_ENV)/restart.sh
 
+gunicorn_start:
+	source scripts/gunicorn/stop.sh || echo "-> Nothing to stop"
+	source scripts/gunicorn/start.sh
+
+gunicorn_stop:
+	source scripts/gunicorn/stop.sh
+
+gunicorn_restart:
+	(make gunicorn_stop && make gunicorn_start) || make gunicorn_start
+
 create_app:
 	source scripts/create_app.sh $(APP_NAME) $(APP_DIR)

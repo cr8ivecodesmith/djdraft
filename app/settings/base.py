@@ -7,16 +7,15 @@ from django.core.exceptions import ImproperlyConfigured
 
 
 ###### PATH CONFIGURATION
-# Build paths inside the core app like this: os.path.join(BASE_DIR, ...)
-# Build paths inside the project app like this: os.path.join(APP_DIR, ...)
-# Build paths inside the project folder like this: os.path.join(PROJECT_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SETTINGS_DIR = os.path.join(BASE_DIR, 'settings')
-APP_DIR = os.path.dirname(BASE_DIR)
+# Build paths inside the core app like this: os.path.join(APP_DIR, ...)
+# Build paths inside the project app like this: os.path.join(PROJECT_DIR, ...)
+APP_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SETTINGS_DIR = os.path.join(APP_DIR, 'settings')
 PROJECT_DIR = os.path.dirname(APP_DIR)
-RUN_DIR = os.path.join(PROJECT_DIR, 'run')
-LOG_DIR = os.path.join(PROJECT_DIR, 'logs')
-SITE_NAME = 'abmcan'
+VAR_DIR = os.path.join(PROJECT_DIR, 'var')
+RUN_DIR = os.path.join(VAR_DIR, 'run')
+LOG_DIR = os.path.join(VAR_DIR, 'logs')
+SITE_NAME = '{{ project_name }}'
 
 
 try:
@@ -73,8 +72,6 @@ THIRD_PARTY_APPS = [
     'djcelery',
 ]
 LOCAL_APPS = [
-    # 'can.web',
-    # 'can.accounts',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -102,15 +99,11 @@ MIDDLEWARE_CLASSES = DJANGO_MIDDLEWARE + THIRD_PARTY_MIDDLEWARE + LOCAL_MIDDLEWA
 
 ###### URL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
-ROOT_URLCONF = 'can.urls'
-
-
-# Redirect to the homepage
-# LOGIN_REDIRECT_URL = 'web:index'
+ROOT_URLCONF = 'app.urls'
 
 
 ##### SITES CONFIGURATION
-# https://docs.djangoproject.com/en/1.9/ref/settings/#std:setting-SITE_ID
+# https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SITE_ID
 SITE_ID = 1
 
 
@@ -119,7 +112,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(APP_DIR, 'templates'),
+            os.path.join(PROJECT_DIR, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -165,7 +158,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 ###### WSGI CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
-WSGI_APPLICATION = 'can.wsgi.application'
+WSGI_APPLICATION = 'app.wsgi.application'
 
 
 ###### MANAGER CONFIGURATION
@@ -177,7 +170,7 @@ MANAGERS = ADMINS
 
 
 ###### PASSWORD VALIDATOR CONFIGURATION
-# https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -195,41 +188,39 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 ###### AUTHENTICATION BACKENDS CONFIGURATION
-# https://docs.djangoproject.com/en/1.9/ref/settings/#std:setting-AUTHENTICATION_BACKENDS
-#AUTHENTICATION_BACKENDS = [
-#    'can.accounts.auth.backends.UsernameBackend',
-#    'can.accounts.auth.backends.EmailBackend',
-#]
+# https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-AUTHENTICATION_BACKENDS
+# AUTHENTICATION_BACKENDS = [
+# ]
 
 
 ###### INTERNATIONALIZATION CONFIGURATION
-# https://docs.djangoproject.com/en/1.10/topics/i18n/
+# https://docs.djangoproject.com/en/dev/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'Asia/Manila'
+TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
 
 ###### STATIC FILE CONFIGURATION
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
+# https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/assets/'
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATIC_ROOT = os.path.join(VAR_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join(APP_DIR, 'assets'),
+    os.path.join(PROJECT_DIR, 'assets'),
 ]
 
 
 ###### MEDIA CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = os.path.join(APP_DIR, 'media')
+MEDIA_ROOT = os.path.join(VAR_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
 ###### LOGGING CONFIGURATION
-# https://docs.djangoproject.com/en/1.9/topics/logging/
+# https://docs.djangoproject.com/en/dev/topics/logging/
 LOG_FILE = os.path.join(LOG_DIR, '{}.log'.format(SITE_NAME))
 LOGGING = {
     'version': 1,
@@ -307,7 +298,7 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 BROKER_USER = 'caffeine'
-BROKER_PASS = 'c@ff3in3Ov3rl0ad'
+BROKER_PASS = 'changeme'
 BROKER_HOST = 'rabbitmq'
 BROKER_PORT = 5672
 BROKER_VHOST = 'caffeine_vhost'
@@ -319,13 +310,12 @@ BROKER_URL = 'amqp://{}:{}@{}:{}/{}'.format(
     BROKER_VHOST
 )
 
-
-CELERY_APP = 'can'
-CELERY_BIN = '/srv/caffeine/venv_abm/bin/celery'
-CELERYBEAT_CHDIR = APP_DIR
-CELERYBEAT_USER = 'caffeine'
-CELERYBEAT_GROUP = 'caffeine'
-CELERYBEAT_PID_FILE = os.path.join(RUN_DIR, 'beat.pid')
-CELERYBEAT_LOG_FILE = os.path.join(LOG_DIR, 'beat.log')
-CELERYBEAT_LOG_LEVEL = 'INFO'
-CELERY_CREATE_DIRS = 1
+# CELERY_APP = 'app'
+# CELERY_BIN = '/srv/caffeine/venv/bin/celery'
+# CELERYBEAT_CHDIR = PROJECT_DIR
+# CELERYBEAT_USER = 'caffeine'
+# CELERYBEAT_GROUP = 'caffeine'
+# CELERYBEAT_PID_FILE = os.path.join(RUN_DIR, 'beat.pid')
+# CELERYBEAT_LOG_FILE = os.path.join(LOG_DIR, 'beat.log')
+# CELERYBEAT_LOG_LEVEL = 'INFO'
+# CELERY_CREATE_DIRS = 1

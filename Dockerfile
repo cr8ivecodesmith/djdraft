@@ -9,13 +9,14 @@ ARG BASE_PIP=/_build/requirements/base.txt
 # NOTE:
 # - Change APP_ENV to `prod` when building for production
 # - A non-priv user named `caffeine` will be created with home dir at `/srv/caffeine`
-# - a virtualenv called `venv_abm` will also be created
+# - A sudoer user named `happy` will be created for ssh login
+# - a virtualenv called `venv` will be created
 ENV APP_ENV=dev
-ENV VENV_NAME=venv_abm
+ENV VENV_NAME=venv
 ENV PROJECT_APP_USER=caffeine
 ENV PROJECT_APP_HOME=/srv/caffeine
-ENV PROJECT_APP_DIR=/srv/caffeine/abm
-ENV PROJECT_APP_VENV=/srv/caffeine/venv_abm
+ENV PROJECT_APP_DIR=/srv/caffeine/project
+ENV PROJECT_APP_VENV=/srv/caffeine/venv
 ENV PROJECT_SUDO_USER=happy
 ENV PROJECT_SUDO_PASS=happy@1234
 

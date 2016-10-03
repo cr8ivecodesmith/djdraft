@@ -11,14 +11,14 @@ INSTALLED_APPS += [
 ]
 
 
-# Database
-# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+###### DATABASE CONFIGURATION
+# https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'caffeinedb',
         'USER': 'caffeine',
-        'PASSWORD': 'c@ff3in3Ov3rl0ad',
+        'PASSWORD': 'changeme',
         'HOST': 'postgres',
         'PORT': 5432,
     }
@@ -35,13 +35,13 @@ EMAIL_HOST_PASSWORD = get_key('EMAIL_HOST_PASSWORD')
 
 ###### MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [
-    ('codehappy dev', get_key('EMAIL_HOST_USER')),
+ADMINS += [
+    ('caffeine dev', get_key('EMAIL_HOST_USER')),
 ]
 
 
 ###### LOGGING CONFIGURATION
-# https://docs.djangoproject.com/en/1.9/topics/logging/
+# https://docs.djangoproject.com/en/dev/topics/logging/
 LOGGING['handlers']['file']['level'] = 'DEBUG'
 
 LOGGING['loggers']['django.request']['handlers'] += ['console', 'file']

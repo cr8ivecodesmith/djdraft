@@ -34,7 +34,7 @@ elif [[ $APP_ENV == prod* ]]; then
     """ > /dev/null
 
     echo "--> [prod] Starting web service"
-    cd $PROJECT_APP_DIR && make gunicorn_start &
+    cd $PROJECT_APP_DIR && make gunicorn_restart &
 
     echo "--> [prod] Starting ssh service"
     /usr/sbin/sshd -D

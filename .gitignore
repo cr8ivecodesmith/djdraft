@@ -36,11 +36,12 @@ nosetests.xml
 .pydevproject
 
 # Logs
+logs/
 *.log
 *.pid
 
 # Configuration
-config-user.json
+keys.json
 
 # Vim
 .*.swp
@@ -48,6 +49,19 @@ config-user.json
 # OSX
 .DS_Store
 
-# Media and Third-party static files
-media
-assets
+# Static
+static/
+
+# Database
+*.db
+*.sqlite3
+db/
+
+# Runs
+run/
+
+# Media
+media/
+
+# OS Env
+.env
