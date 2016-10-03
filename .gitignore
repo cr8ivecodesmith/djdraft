@@ -65,3 +65,4 @@ media/
 
 # OS Env
 .env
+*.env
