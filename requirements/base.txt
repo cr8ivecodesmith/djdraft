@@ -1,0 +1,12 @@
+Django==1.9.10
+psycopg2
+
+celery
+django-celery
+
+# PEP-8 conventions
+flake8
+pep8-naming
+
+# Utilities
+ipython

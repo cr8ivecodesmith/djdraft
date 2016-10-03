@@ -3,12 +3,62 @@ Django DRAFT
 
 The (D)jango (R)ESTFramework (A)pp(F)u (T)emplate
 
-This is, ideally, a single app Django project template built with DRF and social
-logins. Built as a hackathon starter boilerplate in mind.
+An opinionated Django starter template with sane defaults.
 
-Based on bleeding edge Django 1.7x
+- Runs on Docker
+- Has settings for `prod` and `dev` environments
+- Uses Bootstrap+Material design for starter template
+- PostgreSQL for Database
+- Configured Celery with RabbitMQ as broker
+- Redis and Nginx configuration included
 
-Uses Twitter as default social auth login.
+Currently using the latest version of Django. Configured to run on
+Docker with celery.
+
+
+## Requirements
+
+- Django 1.8+ (to pull the template)
+- Docker
+- Docker Compose
+
+
+## Issues
+
+Currently `django-celery` is broken on v1.10.x so this branch is going to
+stuck on 1.9.x until they've officially fixed it.
+
+To follow the issue:
+https://github.com/celery/django-celery/pull/468
+
+
+## Usage
+
+If you named your app `your_app_name` and your using the master branch:
+
+```
+$ django-admin startproject --template=https://github.com/cr8ivecodesmith/djdraft/archive/master.zip --extension=py,html,yml,env,sample,json your_app_name
+```
+
+## Quickstart
+
+Copy or rename the `vars.env.sample` file:
+
+```
+cp vars.env.sample vars.env
+```
+
+Copy the `keys.json.sample` file and change the values accordingly:
+
+```
+cp app/settings/keys.json.sample app/settings/keys.json
+```
+
+Run compose:
+
+```
+docker-compose -f compose/dev.yml run --service-ports web
+```
 
 
 ## Screenshots
@@ -18,44 +68,10 @@ Uses Twitter as default social auth login.
 ![alt text](screenshots/scr2.png "Screenshot 1")
 
 
-## Prerequisites
+## TODO
 
-
-### External libs for Pillow
-
-See: https://pillow.readthedocs.org/en/latest/installation.html#simple-installation
-
-```
-$ sudo apt-get install libtiff4-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.5-dev tk8.5-dev python-tk
-```
-
-
-### Virtualenv
-
-You should have a virtualenv ready with either Python 2.7.x or 3.x
-
-
-### Database
-
-This app is configured with PostgreSQL/MySQL in mind.
-
-
-### Configuration
-
-Under your project's settings folder you'll find a `config.json` file. Fill it out with the needed
-values. Alternatively you can also create a `config-user.json` for configurations specific to a
-particular environment.
-
-
-### Server settings
-
-TODO
-
-
-## Usage
-
-If you named your app `your_app_name`:
-
-```
-$ django-admin startproject --template=https://github.com/cr8ivecodesmith/djdraft/archive/master.zip --extension=py,html,json your_app_name
-```
+- Update screenshots
+- Add default assets and templates
+- Test production settings
+- Document assumptions made
+- Document customization options

@@ -1,0 +1,5 @@
+# We are sticking to the 0.10.x branch so we can have the browser debugger
+# working without the PIN code
+werkzeug==0.10.4
+
+django-extensions

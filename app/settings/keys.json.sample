@@ -1,0 +1,5 @@
+{
+    "SECRET_KEY": "ChangeThisAndKeepItSecret",
+    "EMAIL_HOST_USER": "you@gmail.com",
+    "EMAIL_HOST_PASSWORD": "yourgmailpassword"
+}

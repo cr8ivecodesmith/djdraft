@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+    nginx:
+        restart: always
+        build:
+            context: ../
+            dockerfile: DockerfileNginx
+        image: {{ project_name }}_nginx
+        container_name: {{ project_name }}_nginx
+        volumes_from:
+            - web
+        links:
+            - web
+        ports:
+            - "80:80"
+            - "443:443"
+        environment:
+            APP_ENV: prod
+    postgres:
+        extends:
+            file: base.yml
+            service: postgres
+    redis:
+        extends:
+            file: base.yml
+            service: redis
+    rabbitmq:
+        extends:
+            file: base.yml
+            service: rabbitmq
+    web:
+        extends:
+            file: base.yml
+            service: web
+        depends_on:
+            - postgres
+            - redis
+            - rabbitmq

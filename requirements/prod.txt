@@ -1,0 +1,2 @@
+django_smtp_ssl
+gunicorn

@@ -1,0 +1,49 @@
+version: '2'
+
+services:
+    postgres:
+        restart: always
+        image: postgres:9.5
+        volumes:
+            - ../scripts/init-db-user.sh:/docker-entrypoint-initdb.d/init-db-user.sh
+            - ../var/db/postgres:/var/lib/postgresql/data/
+        ports:
+            - "8013:5432"
+        env_file:
+            - ../vars.env
+        container_name: {{ project_name }}_db
+
+    redis:
+        restart: always
+        image: redis:latest
+        volumes:
+            - ../var/db/redis:/data
+        container_name: {{ project_name }}_rd
+
+    rabbitmq:
+        restart: always
+        image: rabbitmq:latest
+        volumes:
+            - ../var/db/rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@{{ project_name }}_rq
+        ports:
+            - "8014:15672"
+        hostname: "{{ project_name }}_rq"
+        env_file:
+            - ../vars.env
+        container_name: {{ project_name }}_rq
+
+    web:
+        restart: always
+        build:
+            context: ../
+        image: {{ project_name }}_web
+        volumes:
+            - ../:/srv/caffeine/project
+        env_file:
+            - ../vars.env
+        container_name: {{ project_name }}_web
+        ports:
+            - "8015:8000"
+            - "2767:22"
+        working_dir: "/srv/caffeine/project"
+        command: scripts/docker_start.sh
