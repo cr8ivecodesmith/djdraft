@@ -6,8 +6,8 @@ services:
         build:
             context: ../
             dockerfile: DockerfileNginx
-        image: can_nginx
-        container_name: can_nginx
+        image: {{ project_name }}_nginx
+        container_name: {{ project_name }}_nginx
         volumes_from:
             - web
         links:
