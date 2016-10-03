@@ -309,13 +309,3 @@ BROKER_URL = 'amqp://{}:{}@{}:{}/{}'.format(
     BROKER_PORT,
     BROKER_VHOST
 )
-
-# CELERY_APP = 'app'
-# CELERY_BIN = '/srv/caffeine/venv/bin/celery'
-# CELERYBEAT_CHDIR = PROJECT_DIR
-# CELERYBEAT_USER = 'caffeine'
-# CELERYBEAT_GROUP = 'caffeine'
-# CELERYBEAT_PID_FILE = os.path.join(RUN_DIR, 'beat.pid')
-# CELERYBEAT_LOG_FILE = os.path.join(LOG_DIR, 'beat.log')
-# CELERYBEAT_LOG_LEVEL = 'INFO'
-# CELERY_CREATE_DIRS = 1
