@@ -1,6 +1,1 @@
-django
-djangorestframework
-python-social-auth
-psycopg2
-pillow
-gunicorn
+-r requirements/base.txt

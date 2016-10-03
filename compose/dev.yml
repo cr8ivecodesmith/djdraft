@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+    postgres:
+        extends:
+            file: base.yml
+            service: postgres
+    redis:
+        extends:
+            file: base.yml
+            service: redis
+    rabbitmq:
+        extends:
+            file: base.yml
+            service: rabbitmq
+    web:
+        extends:
+            file: base.yml
+            service: web
+        depends_on:
+            - postgres
+            - redis
+            - rabbitmq
