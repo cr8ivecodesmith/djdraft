@@ -10,41 +10,38 @@ services:
         ports:
             - "8013:5432"
         env_file:
-            - ../.env
-        container_name: app_db
+            - ../vars.env
+        container_name: {{ project_name }}_db
 
     redis:
         restart: always
-        build:
-            context: ../
-            dockerfile: DockerfileRedis
-        image: sentinel_redis
+        image: redis:latest
         volumes:
             - ../var/db/redis:/data
-        container_name: app_rd
+        container_name: {{ project_name }}_rd
 
     rabbitmq:
         restart: always
         image: rabbitmq:latest
         volumes:
-            - ../var/db/rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@app_rq
+            - ../var/db/rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@{{ project_name }}_rq
         ports:
             - "8014:15672"
-        hostname: "app_rq"
+        hostname: "{{ project_name }}_rq"
         env_file:
-            - ../.env
-        container_name: app_rq
+            - ../vars.env
+        container_name: {{ project_name }}_rq
 
     web:
         restart: always
         build:
             context: ../
-        image: app_web
+        image: {{ project_name }}_web
         volumes:
             - ../:/srv/caffeine/project
         env_file:
-            - ../.env
-        container_name: app_web
+            - ../vars.env
+        container_name: {{ project_name }}_web
         ports:
             - "8015:8000"
             - "2767:22"

@@ -4,14 +4,14 @@ WSGI config for can project.
 It exposes the WSGI callable as a module-level variable named ``application``.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
+https://docs.djangoproject.com/en/dev/howto/deployment/wsgi/
 """
 
 import os
 
 from django.core.wsgi import get_wsgi_application
 
-app_env = "can.settings.{}".format(
+app_env = "app.settings.{}".format(
     os.environ.get("APP_ENV", "prod")
 )
 
