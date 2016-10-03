@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+{# Meta Section #}
+{% include 'common/metas.html' %}
+{% block head_meta %}
+{% endblock head_meta %}
+
+<title>{% block title %}{% endblock title %}</title>
+
+{# Fonts Section #}
+{% include 'common/fonts.html' %}
+{% block head_fonts %}
+{% endblock head_fonts %}
+
+{# Styles Section #}
+{% include 'common/styles.html' %}
+{% block head_styles %}
+{% endblock head_styles %}
+
+{# Icons Section #}
+{% include 'common/icons.html' %}
+</head>
+<body>
+{% block body %}
+    {% block header %}
+    {% endblock header %}
+
+    {% block content %}
+    {% endblock content %}
+
+    {% block footer %}
+    {% endblock footer %}
+{% endblock body %}
+
+{% include 'common/scripts.html' %}
+{# JS Section #}
+{% block scripts %}
+{% endblock scripts %}
+
+{# Quick and dirty on page JS Section #}
+{% block page_scripts %}
+{% endblock page_scripts %}
+</body>
+</html>
