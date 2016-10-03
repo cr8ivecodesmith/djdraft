@@ -3,17 +3,17 @@ Django DRAFT
 
 The (D)jango (R)ESTFramework (A)pp(F)u (T)emplate
 
-An opinionated Django starter template with sane defaults.
+An opinionated Django starter template with sane defaults and saves you time.
 
+- Uses the latest (or tries) package versions
+- Made a lot of assumptions
 - Runs on Docker
 - Has settings for `prod` and `dev` environments
 - Uses Bootstrap+Material design for starter template
 - PostgreSQL for Database
 - Configured Celery with RabbitMQ as broker
 - Redis and Nginx configuration included
-
-Currently using the latest version of Django. Configured to run on
-Docker with celery.
+- Perfect for both hobby and production projects
 
 
 ## Requirements
@@ -37,7 +37,7 @@ https://github.com/celery/django-celery/pull/468
 If you named your app `your_app_name` and your using the master branch:
 
 ```
-$ django-admin startproject --template=https://github.com/cr8ivecodesmith/djdraft/archive/master.zip --extension=py,html,yml,env,sample,json your_app_name
+django-admin startproject --template=https://github.com/cr8ivecodesmith/djdraft/archive/master.zip --extension=py,html,yml,env,sample,conf,json your_app_name
 ```
 
 ## Quickstart
@@ -70,8 +70,8 @@ docker-compose -f compose/dev.yml run --service-ports web
 
 ## TODO
 
-- Update screenshots
 - Add default assets and templates
 - Test production settings
 - Document assumptions made
 - Document customization options
+- Update screenshots
