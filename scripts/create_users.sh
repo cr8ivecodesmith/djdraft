@@ -1,12 +1,15 @@
 #!/bin/bash
 
 echo "--> Setting os environment variables"
-echo "PROJECT_APP_USER=$PROJECT_APP_USER" >> /etc/environment
-echo "PROJECT_APP_HOME=$PROJECT_APP_HOME" >> /etc/environment
-echo "PROJECT_APP_DIR=$PROJECT_APP_DIR" >> /etc/environment
-echo "PROJECT_APP_VENV=$PROJECT_APP_VENV" >> /etc/environment
-echo "VENV_NAME=$VENV_NAME" >> /etc/environment
-echo "APP_ENV=$APP_ENV" >> /etc/environment
+echo """
+APP_ENV=$APP_ENV
+VENV_NAME=$VENV_NAME
+PROJECT_APP_DOMAIN=$PROJECT_APP_DOMAIN
+PROJECT_APP_USER=$PROJECT_APP_USER
+PROJECT_APP_HOME=$PROJECT_APP_HOME
+PROJECT_APP_DIR=$PROJECT_APP_DIR
+PROJECT_APP_VENV=$PROJECT_APP_VENV
+""" >> /etc/environment
 
 echo "--> Refreshing os environment variables"
 source /etc/environment
