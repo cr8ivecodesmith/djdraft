@@ -5,7 +5,7 @@ DEBUG = False
 
 
 ALLOWED_HOSTS = [
-    'example.com',
+    '{{ project_name }}.dev',
 ]
 
 
@@ -40,18 +40,18 @@ EMAIL_HOST_USER = get_key('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = get_key('EMAIL_HOST_PASSWORD')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
-EMAIL_HOST = 'smtp.example.com'
+EMAIL_HOST = 'smtp.{{ project_name }}.dev'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
 EMAIL_PORT = 465
 
-SERVER_EMAIL = 'errors@example.com'
-DEFAULT_FROM_EMAIL = 'no-reply@example.com'
+SERVER_EMAIL = 'errors@{{ project_name }}.dev'
+DEFAULT_FROM_EMAIL = 'noreply@{{ project_name }}.dev'
 
 ###### MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS += [
-    ('caffeine prod', 'errors@example.com'),
+    ('caffeine prod', 'errors@{{ project_name }}.dev'),
 ]
 
 

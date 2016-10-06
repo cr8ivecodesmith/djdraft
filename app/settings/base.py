@@ -15,6 +15,7 @@ PROJECT_DIR = os.path.dirname(APP_DIR)
 VAR_DIR = os.path.join(PROJECT_DIR, 'var')
 RUN_DIR = os.path.join(VAR_DIR, 'run')
 LOG_DIR = os.path.join(VAR_DIR, 'logs')
+TMP_DIR = os.path.join(VAR_DIR, 'tmp')
 SITE_NAME = '{{ project_name }}'
 
 
