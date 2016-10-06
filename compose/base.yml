@@ -1,6 +1,17 @@
 version: '2'
 
 services:
+    nginx:
+        restart: always
+        build:
+            context: ../
+            dockerfile: DockerfileNginx
+        image: {{ project_name }}_nginx
+        ports:
+            - "80:80"
+            - "443:443"
+        container_name: {{ project_name }}_nginx
+
     postgres:
         restart: always
         image: postgres:9.5

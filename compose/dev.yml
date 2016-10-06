@@ -1,23 +1,37 @@
 version: '2'
 
 services:
+    nginx:
+        extends:
+            file: base.yml
+            service: nginx
+        ports:
+            - "8016:80"
+            - "8017:443"
+        volumes_from:
+            - web
+        links:
+            - rabbitmq
+            - redis
+            - postgres
+            - web
+
     postgres:
         extends:
             file: base.yml
             service: postgres
+
     redis:
         extends:
             file: base.yml
             service: redis
+
     rabbitmq:
         extends:
             file: base.yml
             service: rabbitmq
+
     web:
         extends:
             file: base.yml
             service: web
-        depends_on:
-            - postgres
-            - redis
-            - rabbitmq
