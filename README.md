@@ -34,10 +34,10 @@ https://github.com/celery/django-celery/pull/468
 
 ## Usage
 
-If you named your app `your_app_name` and your using the master branch:
+If you named your app `{{ project_name }}` and your using the master branch:
 
 ```
-django-admin startproject --template=https://github.com/cr8ivecodesmith/djdraft/archive/master.zip --extension=py,html,yml,env,sample,conf,json your_app_name
+django-admin startproject --template=https://github.com/cr8ivecodesmith/djdraft/archive/master.zip --extension=py,md,yml,env,sample,conf,json --name Dockerfile,DockerfileNginx {{ project_name }}
 ```
 
 ## Quickstart
@@ -54,10 +54,34 @@ Copy the `keys.json.sample` file and change the values accordingly:
 cp app/settings/keys.json.sample app/settings/keys.json
 ```
 
+Add {{ project_name }}.dev to you /etc/hosts file:
+
+```
+echo "0.0.0.0       {{ project_name }}.dev" | sudo tee -a /etc/hosts
+```
+
+Generate dev ssl keys:
+
+```
+source scripts/generate_ssl.sh var/ssl {{ project_name }}.dev
+```
+
 Run compose:
 
 ```
-docker-compose -f compose/dev.yml run --service-ports web
+docker-compose -f compose/dev.yml run --service-ports nginx
+```
+
+Then you should be able to ssh to the web container:
+
+```
+ssh happy@0.0.0.0 -p 2767
+```
+
+Open your browser to:
+
+```
+https://{{ project_name }}.dev:8017
 ```
 
 
