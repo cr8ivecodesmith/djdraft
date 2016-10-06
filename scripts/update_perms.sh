@@ -6,6 +6,7 @@ echo "-> Updating permissions and ownership for docker access"
 find $PROJECT_APP_DIR -iname "migrations" -type "d" | xargs chmod 777
 find $PROJECT_APP_VENV -iname "migrations" -type "d" | xargs chmod 777
 
+chmod 777 $PROJECT_APP_DIR/var/tmp
 chmod 777 $PROJECT_APP_DIR/var/db
 chmod 777 $PROJECT_APP_DIR/var/run
 chmod 777 $PROJECT_APP_DIR/var/logs
