@@ -8,15 +8,18 @@ ARG BASE_PIP=/_build/requirements/base.txt
 # Project env vars
 # NOTE:
 # - Change APP_ENV to `prod` when building for production
+# - Change PROJECT_APP_DOMAIN to your project's domain
 # - A non-priv user named `caffeine` will be created with home dir at `/srv/caffeine`
 # - A sudoer user named `happy` will be created for ssh login
 # - a virtualenv called `venv` will be created
 ENV APP_ENV=dev
 ENV VENV_NAME=venv
+ENV PROJECT_APP_DOMAIN={{ project_name }}.dev
 ENV PROJECT_APP_USER=caffeine
 ENV PROJECT_APP_HOME=/srv/caffeine
 ENV PROJECT_APP_DIR=/srv/caffeine/project
 ENV PROJECT_APP_VENV=/srv/caffeine/venv
+
 ENV PROJECT_SUDO_USER=happy
 ENV PROJECT_SUDO_PASS=happy@1234
 
