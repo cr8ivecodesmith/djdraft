@@ -1,0 +1,10 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name docs.crawlers.mmk.local;
+
+    location / {
+        root /home/caffeine/project/docs/build/;
+    }
+
+}

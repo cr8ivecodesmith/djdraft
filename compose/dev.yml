@@ -6,32 +6,38 @@ services:
             file: base.yml
             service: nginx
         ports:
-            - "8016:80"
-            - "8017:443"
+            - "8020:80"
+            - "8022:443"
         volumes_from:
-            - web
+            - app
         links:
-            - rabbitmq
-            - redis
             - postgres
-            - web
+            - rabbitmq
+            - memcached
+            - redis
+            - {{ project_name }}_app
+
+    {{ project_name }}_app:
+        extends:
+            file: base.yml
+            service: {{ project_name }}_app
 
     postgres:
         extends:
             file: base.yml
             service: postgres
 
-    redis:
-        extends:
-            file: base.yml
-            service: redis
-
     rabbitmq:
         extends:
             file: base.yml
             service: rabbitmq
 
-    web:
+    memcached:
         extends:
             file: base.yml
-            service: web
+            service: memcached
+
+    redis:
+        extends:
+            file: base.yml
+            service: redis

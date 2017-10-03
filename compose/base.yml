@@ -3,58 +3,54 @@ version: '2'
 services:
     nginx:
         restart: always
+        image: nginx:latest
+        container_name: {{ project_name }}_ng
+
+    {{ project_name }}_app:
+        restart: always
         build:
             context: ../
-            dockerfile: DockerfileNginx
-        image: {{ project_name }}_nginx
-        ports:
-            - "80:80"
-            - "443:443"
-        container_name: {{ project_name }}_nginx
+        image: {{ project_name }}_app:latest
+        env_file:
+            - ../var/etc/app.env
+            - ../var/etc/rabbitmq.env
+            - ../var/etc/pgsql.env
+        volumes:
+            - ../:/home/caffeine/project
+        user: "1000:caffeine"
+        container_name: {{ project_name }}_app
+        working_dir: "/home/caffeine/project"
+        command: ["/home/caffeine/project/var/bin/docker-start.sh"]
 
     postgres:
         restart: always
-        image: postgres:9.5
-        volumes:
-            - ../scripts/init-db-user.sh:/docker-entrypoint-initdb.d/init-db-user.sh
-            - ../var/db/postgres:/var/lib/postgresql/data/
-        ports:
-            - "8013:5432"
+        image: postgres:latest
         env_file:
-            - ../vars.env
-        container_name: {{ project_name }}_db
+            - ../var/etc/pgsql.env
+        volumes:
+            - ../var/etc/postgres/initdb.d/init-db-user.sh:/docker-entrypoint-initdb.d/init-db-user.sh
+            - ../var/lib/postgres:/var/lib/postgresql/data/
+        container_name: {{ project_name }}_pgsql
+
+    rabbitmq:
+        restart: always
+        image: rabbitmq:management
+        env_file:
+            - ../var/etc/rabbitmq.env
+        volumes:
+            - ../var/lib/rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@caffeine_rq
+        hostname: "caffeine_rq"
+        container_name: {{ project_name }}_rabbitmq
+
+    memcached:
+        restart: always
+        image: memcached:latest
+        container_name: {{ project_name }}_memcached
 
     redis:
         restart: always
         image: redis:latest
         volumes:
-            - ../var/db/redis:/data
-        container_name: {{ project_name }}_rd
+            - ../var/lib/redis:/data
+        container_name: {{ project_name }}_redis
 
-    rabbitmq:
-        restart: always
-        image: rabbitmq:latest
-        volumes:
-            - ../var/db/rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@{{ project_name }}_rq
-        ports:
-            - "8014:15672"
-        hostname: "{{ project_name }}_rq"
-        env_file:
-            - ../vars.env
-        container_name: {{ project_name }}_rq
-
-    web:
-        restart: always
-        build:
-            context: ../
-        image: {{ project_name }}_web
-        volumes:
-            - ../:/srv/caffeine/project
-        env_file:
-            - ../vars.env
-        container_name: {{ project_name }}_web
-        ports:
-            - "8015:8000"
-            - "2767:22"
-        working_dir: "/srv/caffeine/project"
-        command: scripts/docker_start.sh

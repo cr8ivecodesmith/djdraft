@@ -12,24 +12,27 @@ An opinionated Django starter template with sane defaults and saves you time.
 - Uses Bootstrap+Material design for starter template
 - PostgreSQL for Database
 - Configured Celery with RabbitMQ as broker
-- Redis and Nginx configuration included
+- Memcached for prod cache
+- Redis container linked
+- Nginx with SSL configuration included
+- Sphinx doc configuration included
 - Perfect for both hobby and production projects
 
 
 ## Requirements
 
-- Django 1.8+ (to pull the template)
+- Linux
+- Python 3.x
+- Django 1.11.x
 - Docker
 - Docker Compose
 
 
-## Issues
+**Tested on:**
 
-Currently `django-celery` is broken on v1.10.x so this branch is going to
-stuck on 1.9.x until they've officially fixed it.
-
-To follow the issue:
-https://github.com/celery/django-celery/pull/468
+- Ubuntu 16.04
+- Docker 17.06.2-ce
+- Docker Compose 1.15.0
 
 
 ## Usage
@@ -37,59 +40,47 @@ https://github.com/celery/django-celery/pull/468
 If you named your app `{{ project_name }}` and your using the master branch:
 
 ```
-django-admin startproject --template=https://github.com/cr8ivecodesmith/djdraft/archive/master.zip --extension=py,md,yml,env,sample,conf,json --name Dockerfile,DockerfileNginx {{ project_name }}
+$ django-admin startproject --template=https://github.com/cr8ivecodesmith/djdraft/archive/master.zip --extension=py,md,yml,env,sample,conf,json --name Dockerfile {{ project_name }}
 ```
 
-## Quickstart
+## Development Quickstart
 
-Copy or rename the `vars.env.sample` file:
-
-```
-cp vars.env.sample vars.env
-```
-
-Copy the `keys.json.sample` file and change the values accordingly:
+Build the app image
 
 ```
-cp app/settings/keys.json.sample app/settings/keys.json
+$ docker-compose -f compose/dev.yml -p {{ project_name }} build {{ project_name }}_app
 ```
 
-Add {{ project_name }}.dev to you /etc/hosts file:
+Add `{{ project_name }}.dev` to your `/etc/hosts` file:
 
 ```
-echo "0.0.0.0       {{ project_name }}.dev" | sudo tee -a /etc/hosts
+$ echo "0.0.0.0		{{ project_name }}.dev" | sudo tee -a /etc/hosts
 ```
 
 Generate dev ssl keys:
 
 ```
-source scripts/generate_ssl.sh var/ssl {{ project_name }}.dev
+$ . var/etc/ssl/generate_ssl.sh var/etc/ssl {{ project_name }}.dev
 ```
 
 Run compose:
 
 ```
-docker-compose -f compose/dev.yml run --service-ports nginx
-```
-
-Then you should be able to ssh to the web container:
-
-```
-ssh happy@0.0.0.0 -p 2767
+$ docker-compose -f compose/dev.yml -p {{ project_name }} run --service-ports nginx
 ```
 
 Open your browser to:
 
 ```
-https://{{ project_name }}.dev:8017
+https://{{ project_name }}.dev:8022
 ```
 
 
 ## Screenshots
 
-![alt text](screenshots/scr1.png "Screenshot 1")
+![alt text](var/share/screenshots/scr1.png "Screenshot 1")
 
-![alt text](screenshots/scr2.png "Screenshot 1")
+![alt text](var/share/screenshots/scr2.png "Screenshot 2")
 
 
 ## TODO

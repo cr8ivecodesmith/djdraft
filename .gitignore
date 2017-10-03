@@ -10,8 +10,8 @@ dist
 build
 eggs
 parts
-bin
-var
+# bin
+# var
 sdist
 develop-eggs
 .installed.cfg
@@ -36,12 +36,12 @@ nosetests.xml
 .pydevproject
 
 # Logs
-logs/
+var/log/
+var/log/nginx/
 *.log
-*.pid
 
 # Configuration
-keys.json
+var/etc/config.json
 
 # Vim
 .*.swp
@@ -50,19 +50,24 @@ keys.json
 .DS_Store
 
 # Static
-static/
+var/share/static/
 
 # Database
 *.db
 *.sqlite3
-db/
+var/lib/
 
 # Runs
-run/
+var/run/
+*.pid
+*.sock
+
+# SSL
+var/etc/ssl/server*
 
 # Media
-media/
+var/share/media/
 
 # OS Env
-.env
-*.env
+# .env
+# *.env

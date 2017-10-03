@@ -1,0 +1,27 @@
+*.py[cod]
+*.sw?
+*.so
+*.egg
+*.egg-info
+*.log
+*.pid
+*.sock
+*.sqlite3
+*.db
+__pycache__
+
+
+.DS_Store
+.git
+
+
+# App
+manage.py
+app
+assets
+templates
+
+var/lib/
+var/run/
+var/log/
+var/share/

@@ -2,11 +2,11 @@
 import os
 import sys
 
-if __name__ == "__main__":
-    app_env = "app.settings.{}".format(
-        os.environ.get("APP_ENV", "prod")
+if __name__ == '__main__':
+    app_env = 'config.settings.{env}'.format(
+        env=os.environ.get('APP_ENV', 'prod')
     )
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", app_env)
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', app_env)
     try:
         from django.core.management import execute_from_command_line
     except ImportError:
@@ -14,7 +14,7 @@ if __name__ == "__main__":
         # issue is really that Django is missing to avoid masking other
         # exceptions on Python 2.
         try:
-            import django
+            import django  # noqa
         except ImportError:
             raise ImportError(
                 "Couldn't import Django. Are you sure it's installed and "
@@ -22,4 +22,5 @@ if __name__ == "__main__":
                 "forget to activate a virtual environment?"
             )
         raise
-    execute_from_command_line(sys.argv)
+    else:
+        execute_from_command_line(sys.argv)

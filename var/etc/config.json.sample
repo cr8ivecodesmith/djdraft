@@ -1,0 +1,13 @@
+{
+    "DJANGO_APP_SECRET_KEY": "{{ secret_key }}",
+    "DJANGO_APP_DEBUG": false,
+    "DJANGO_APP_ALLOWED_HOSTS": [
+        "localhost",
+        "127.0.0.1",
+        "0.0.0.0"
+    ],
+    "DJANGO_APP_LANGUAGE_CODE": "en-us",
+    "DJANGO_APP_TIME_ZONE": "UTC",
+    "DJANGO_APP_EMAIL_HOST_USER": "yourgmailuser@gmail.com",
+    "DJANGO_APP_EMAIL_HOST_PASSWORD": "yourgmailpassword"
+}

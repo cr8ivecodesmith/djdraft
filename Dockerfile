@@ -1,51 +1,46 @@
-FROM ubuntu:14.04
+FROM python:3.6
 
-# Build time env vars
-ARG BUILD_DIR=/_build/
-ARG BASE_REQ=/_build/requirements/build.sh
-ARG BASE_PIP=/_build/requirements/base.txt
+# Build env vars
+ARG BUILD_ROOT /opt
 
-# Project env vars
-# NOTE:
-# - Change APP_ENV to `prod` when building for production
-# - Change PROJECT_APP_DOMAIN to your project's domain
-# - A non-priv user named `caffeine` will be created with home dir at `/srv/caffeine`
-# - A sudoer user named `happy` will be created for ssh login
-# - a virtualenv called `venv` will be created
-ENV APP_ENV=dev
-ENV VENV_NAME=venv
-ENV PROJECT_APP_DOMAIN={{ project_name }}.dev
-ENV PROJECT_APP_USER=caffeine
-ENV PROJECT_APP_HOME=/srv/caffeine
-ENV PROJECT_APP_DIR=/srv/caffeine/project
-ENV PROJECT_APP_VENV=/srv/caffeine/venv
+# App env vars
+ENV APP_ENV prod
+ENV APP_USER caffeine
+ENV APP_USER_HOME /home/caffeine
+ENV APP_PROJECT_ROOT /home/caffeine/project
+ENV APP_PROJECT_VENV /home/caffeine/venv
 
-ENV PROJECT_SUDO_USER=happy
-ENV PROJECT_SUDO_PASS=happy@1234
+# Create non-priv user
+RUN useradd \
+    --user-group \
+    --uid 1000 \
+    --shell /bin/bash \
+    --home-dir $APP_USER_HOME \
+    $APP_USER
 
-RUN mkdir -p $BUILD_DIR
-WORKDIR $BUILD_DIR
-ADD . $BUILD_DIR
+# Create virtualenv
+RUN python -m venv $APP_PROJECT_VENV
 
-# Install packages and build the environment
-RUN apt-get update && apt-get install -y \
-       build-essential \
-       python3-dev \
-       python3-pip \
-       python3.4-venv \
-       openssh-server \
-       htop \
-    && . $BASE_REQ \
-    && pip3 install -U pip \
-    && mkdir /var/run/sshd \
-    && make init_env
+# Install requirements
+WORKDIR $BUILD_ROOT
+COPY requirements/*.txt $BUILD_ROOT
+RUN . $APP_PROJECT_VENV/bin/activate \
+    && pip install \
+        --no-cache-dir --no-compile \
+        --log $BUILD_ROOT/pip.log \
+        -U pip \
+    && pip install \
+        --no-cache-dir --no-compile \
+        --log $BUILD_ROOT/pip.log \
+        -r $APP_ENV.txt
+
+# Fix permissions
+RUN chown $APP_USER: -R $APP_USER_HOME
 
 # Clean up
 RUN apt-get autoclean \
-    && apt-get autoremove \
-    && apt-get purge \
-    && rm -Rf $BUILD_DIR
+    && apt-get autoremove --purge \
+    && rm -rf $BUILD_ROOT/*
 
-EXPOSE 22 8000
-
-CMD ["/usr/sbin/sshd", "-D"]
+# Start
+WORKDIR $APP_PROJECT_ROOT

@@ -1,5 +1,9 @@
-# We are sticking to the 0.10.x branch so we can have the browser debugger
-# working without the PIN code
-werkzeug==0.10.4
+-r base.txt
 
+Sphinx
+werkzeug
 django-extensions
+
+# PEP-8 conventions
+flake8
+pep8-naming
