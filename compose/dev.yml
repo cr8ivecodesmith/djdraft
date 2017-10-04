@@ -9,7 +9,7 @@ services:
             - "8020:80"
             - "8022:443"
         volumes_from:
-            - app
+            - {{ project_name }}_app
         links:
             - postgres
             - rabbitmq

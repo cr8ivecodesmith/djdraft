@@ -4,7 +4,7 @@ services:
     nginx:
         restart: always
         image: nginx:latest
-        container_name: {{ project_name }}_ng
+        container_name: {{ project_name }}_nginx
 
     {{ project_name }}_app:
         restart: always

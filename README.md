@@ -1,5 +1,5 @@
 Django DRAFT
-============
+===============================================================================
 
 The (D)jango (R)ESTFramework (A)pp(F)u (T)emplate
 
@@ -35,46 +35,13 @@ An opinionated Django starter template with sane defaults and saves you time.
 - Docker Compose 1.15.0
 
 
-## Usage
+## Template Usage
 
 If you named your app `{{ project_name }}` and your using the master branch:
 
 ```
-$ django-admin startproject --template=https://github.com/cr8ivecodesmith/djdraft/archive/master.zip --extension=py,md,yml,env,sample,conf,json --name Dockerfile {{ project_name }}
+$ django-admin startproject --template=https://github.com/cr8ivecodesmith/djdraft/archive/master.zip --extension=py,md,rst,yml,env,sample,conf,json --name Dockerfile {{ project_name }}
 ```
-
-## Development Quickstart
-
-Build the app image
-
-```
-$ docker-compose -f compose/dev.yml -p {{ project_name }} build {{ project_name }}_app
-```
-
-Add `{{ project_name }}.dev` to your `/etc/hosts` file:
-
-```
-$ echo "0.0.0.0		{{ project_name }}.dev" | sudo tee -a /etc/hosts
-```
-
-Generate dev ssl keys:
-
-```
-$ . var/etc/ssl/generate_ssl.sh var/etc/ssl {{ project_name }}.dev
-```
-
-Run compose:
-
-```
-$ docker-compose -f compose/dev.yml -p {{ project_name }} run --service-ports nginx
-```
-
-Open your browser to:
-
-```
-https://{{ project_name }}.dev:8022
-```
-
 
 ## Screenshots
 
@@ -90,3 +57,48 @@ https://{{ project_name }}.dev:8022
 - Document assumptions made
 - Document customization options
 - Update screenshots
+
+---
+
+{{ project_name }}
+===============================================================================
+
+## Development Quickstart
+
+### Prepreparations
+
+The following steps are normally done once.
+
+1) Build the app image
+
+```
+$ docker build -t {{ project_name }}_app:latest --build-arg BUILD_ENV=dev .
+```
+
+2) Add `{{ project_name }}.dev` to your `/etc/hosts` file:
+
+```
+$ echo "0.0.0.0		{{ project_name }}.dev" | sudo tee -a /etc/hosts
+```
+
+3) Generate dev ssl keys:
+
+```
+$ . var/etc/ssl/generate_ssl.sh var/etc/ssl {{ project_name }}.dev
+```
+
+### Starting the project
+
+You will have to run these commands when you're ready to start the project
+
+1) Run the development compose file
+
+```
+$ docker-compose -f compose/dev.yml -p {{ project_name }} run -e APP_ENV=dev -d --service-ports --name {{ project_name }}_nginx nginx
+```
+
+2) Open your browser
+
+```
+https://{{ project_name }}.dev:8022
+```

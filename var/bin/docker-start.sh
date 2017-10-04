@@ -13,6 +13,7 @@ APP_DIR=$(dirname $VAR_DIR)
 ## MAIN
 
 # TODO:
+# - install requirements
 # - run migrations
 # - update static files
 # - start celery beat
