@@ -8,6 +8,8 @@ services:
         ports:
             - "80:80"
             - "443:443"
+        volumes:
+            - ../var/etc/nginx/sites-enabled.prod:/etc/nginx/sites-enabled
         volumes_from:
             - {{ project_name }}_app
         links:

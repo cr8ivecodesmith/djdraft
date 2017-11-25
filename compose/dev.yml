@@ -8,6 +8,8 @@ services:
         ports:
             - "8020:80"
             - "8022:443"
+        volumes:
+            - ../var/etc/nginx/sites-enabled.dev:/etc/nginx/sites-enabled
         volumes_from:
             - {{ project_name }}_app
         links:
@@ -21,6 +23,7 @@ services:
         extends:
             file: base.yml
             service: {{ project_name }}_app
+        command: ["/home/caffeine/project/var/bin/gunicorn-start.sh"]
 
     postgres:
         extends:

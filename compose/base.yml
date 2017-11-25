@@ -4,6 +4,10 @@ services:
     nginx:
         restart: always
         image: nginx:latest
+        volumes:
+            - ../var/etc/ssl:/etc/ssl
+            - ../var/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ../var/log/nginx:/var/log/nginx
         container_name: {{ project_name }}_nginx
 
     {{ project_name }}_app:

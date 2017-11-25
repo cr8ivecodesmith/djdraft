@@ -87,6 +87,13 @@ $ echo "0.0.0.0		{{ project_name }}.dev" | sudo tee -a /etc/hosts
 $ . var/etc/ssl/generate_ssl.sh var/etc/ssl {{ project_name }}.dev
 ```
 
+4) Copy config file and update accordingly
+
+```
+$ cp var/etc/config.json.sample var/etc/config.json
+```
+
+
 ### Starting the project
 
 You will have to run these commands when you're ready to start the project
